@@ -1,5 +1,5 @@
-#!/bin/bash
 
+#!/bin/bash
 
 os_version()
 {
@@ -18,11 +18,13 @@ uname -r
 echo ''
 }
 
+
+
 cpu_clock_speed()
 {
 echo ''
 echo "The CPU Clock Speed is :"
-cat /proc/cpuinfo | grep MHz
+cat /proc/cpuinfo >> c.txt | cat c.txt | sed -n 8p
 echo ''
 }
 
@@ -30,13 +32,43 @@ cpu_architecture()
 {
 echo ''
 echo "The CPU Architectute :"
-lscpu >> b.txt | cat b.txt | sed -n 1p
+lscpu | grep Architecture
+echo ''
 }
+
+ram_details()
+{
+echo ''
+echo "RAM_Details"
+cat /proc/meminfo | grep -E 'MemTotal|MemFree|MemAvailable'
+echo ''
+}
+
+disk_details()
+{
+echo ''
+echo "Disk_details"
+lsblk
+echo ''
+}
+
+
+physical_cpu_cores()
+{
+echo ''
+echo "Physical CPU Cores"
+cat /proc/cpuinfo | grep "cpu cores"
+echo ''
+}
+
+
 
 os_version
 kernel_version
 cpu_clock_speed
 cpu_architecture
-
+ram_details
+disk_details
+physical_cpu_cores
 
 
